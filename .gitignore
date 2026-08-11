@@ -1,0 +1,11 @@
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Temp / QA scratch (not production)
+assets/_*
+assets/hero-src-mid.png
+assets/_cmp-*.png
+assets/_qa-*.png
