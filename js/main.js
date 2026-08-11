@@ -31,17 +31,32 @@
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  /* —— Speakers reveal —— */
-  (function initSpeakersReveal() {
-    var cards = document.querySelectorAll(".speaker");
-    if (!cards.length) return;
-
+  /* —— Scroll reveal (sections + speaker cards) —— */
+  (function initScrollReveal() {
     var reduced =
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    /* One level only (no parent+child) so opacity does not stack. */
+    var blocks = document.querySelectorAll(
+      [
+        ".section .section__head",
+        ".speaker",
+        ".agenda__item",
+        ".track",
+        ".venue-grid",
+        ".site-footer__organizers-inner",
+      ].join(",")
+    );
+
+    if (!blocks.length) return;
+
+    blocks.forEach(function (el) {
+      el.classList.add("reveal");
+    });
+
     if (reduced || !("IntersectionObserver" in window)) {
-      cards.forEach(function (el) {
+      blocks.forEach(function (el) {
         el.classList.add("is-in");
       });
       return;
@@ -52,16 +67,23 @@
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
           var el = entry.target;
-          var idx = Array.prototype.indexOf.call(cards, el);
-          el.style.animationDelay = Math.max(0, idx) * 0.07 + "s";
+          /* Soft stagger for sibling items inside a group */
+          var parent = el.parentElement;
+          if (parent && (el.classList.contains("speaker") || el.classList.contains("track") || el.classList.contains("agenda__item"))) {
+            var siblings = parent.querySelectorAll(".reveal");
+            var idx = Array.prototype.indexOf.call(siblings, el);
+            if (idx >= 0) {
+              el.style.transitionDelay = Math.min(idx * 0.07, 0.42) + "s";
+            }
+          }
           el.classList.add("is-in");
           io.unobserve(el);
         });
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.12 }
     );
 
-    cards.forEach(function (el) {
+    blocks.forEach(function (el) {
       io.observe(el);
     });
   })();
