@@ -6,16 +6,16 @@
     <title>2026 U.S. Taiwan Tech Connect · NATEA Seattle</title>
     <meta
       name="description"
-      content="US Taiwan Tech Connect 2026 — Bridging AI: Taiwan innovation meets Seattle Tech. Oct 24, 2026 at University of Washington. Hosted by NATEA Seattle Chapter."
+      content="US Taiwan Tech Connect 2026 — Bridging AI: Taiwan innovation meets Seattle Tech. Saturday, Oct 24, 2026, 1:30–6:30 PM at University of Washington — Oak Hall Denny Room. Hosted by NATEA Seattle Chapter."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="assets/natea-mark.png" type="image/png" />
-    <link rel="stylesheet" href="css/styles.css?v=20260810a" />
+    <link rel="icon" href="assets/NATEA%20Seattle%20Black.png" type="image/png" />
+    <link rel="stylesheet" href="css/styles.css?v=20260811aa" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -25,9 +25,9 @@
         <a class="brand" href="#top" aria-label="NATEA Seattle home">
           <img
             class="brand__logo"
-            src="assets/natea-logo.png?v=20260808h"
-            width="900"
-            height="160"
+            src="assets/NATEA%20Seattle%20Black.png?v=20260811g"
+            width="259"
+            height="40"
             alt="NATEA Seattle"
             decoding="async"
           />
@@ -36,7 +36,7 @@
         <nav class="nav" aria-label="Primary">
           <a href="#speakers">Speakers</a>
           <a href="#agenda">Agenda</a>
-          <a href="#panels">Panels</a>
+          <a href="#roundtables">Roundtables</a>
           <a href="#venue">Venue</a>
           <a
             class="btn btn--primary btn--nav"
@@ -44,7 +44,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            Register
+            RSVP
             <svg class="btn__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M14 5h5v5M19 5l-9 9M10 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-4"
@@ -73,22 +73,31 @@
       <nav id="mobile-nav" class="nav-panel" aria-label="Mobile">
         <a href="#speakers">Speakers</a>
         <a href="#agenda">Agenda</a>
-        <a href="#panels">Panels</a>
+        <a href="#roundtables">Roundtables</a>
         <a href="#venue">Venue</a>
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLSffxCqk_LoCptUi9ynlW-Inpm6NsLrjcWyeMwj1Ae0CpyNlfQ/viewform"
           target="_blank"
           rel="noopener noreferrer"
-          >Register</a
+          >RSVP</a
         >
       </nav>
     </header>
 
     <main id="main">
       <section class="hero" id="top" aria-labelledby="hero-title">
-        <!-- Layer 1 static base · Layer 2 animated multi-line waves only -->
+        <!-- One photo only: canvas gently warps it (no ribbon overlay stack) -->
         <div class="hero__visual" aria-hidden="true">
-          <div class="hero__base"></div>
+          <img
+            class="hero__base"
+            id="hero-bg-src"
+            src="assets/hero-base.jpg?v=20260811z"
+            width="2880"
+            height="1620"
+            alt=""
+            decoding="async"
+            fetchpriority="high"
+          />
           <canvas class="hero__waves" id="hero-waves" width="1600" height="900"></canvas>
         </div>
 
@@ -129,7 +138,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Register
+              Reserve your seat
               <svg class="btn__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M14 5h5v5M19 5l-9 9M10 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-4"
@@ -153,7 +162,13 @@
           <ul class="speakers-grid">
             <li class="speaker">
               <div class="speaker__photo">
-                <img src="assets/speakers/jc-pan.png" alt="" width="480" height="480" loading="lazy" />
+                <img
+                  src="assets/speakers/JC%20Pan%201.png"
+                  alt=""
+                  width="310"
+                  height="300"
+                  loading="lazy"
+                />
               </div>
               <div class="speaker__body">
                 <h3 class="speaker__name">
@@ -163,12 +178,25 @@
                   >
                 </h3>
                 <p class="speaker__role">VP, Cloud Supply Chain Sourcing</p>
-                <p class="speaker__company">Microsoft</p>
+                <img
+                  class="speaker__logo"
+                  src="assets/company_logo/Frame%203.png"
+                  alt="Microsoft"
+                  width="150"
+                  height="50"
+                  loading="lazy"
+                />
               </div>
             </li>
             <li class="speaker">
               <div class="speaker__photo">
-                <img src="assets/speakers/frank-wang.png" alt="" width="480" height="480" loading="lazy" />
+                <img
+                  src="assets/speakers/Frank%20Wang%201.png"
+                  alt=""
+                  width="310"
+                  height="300"
+                  loading="lazy"
+                />
               </div>
               <div class="speaker__body">
                 <h3 class="speaker__name">
@@ -178,12 +206,25 @@
                   >
                 </h3>
                 <p class="speaker__role">Director, Deep Learning &amp; CV</p>
-                <p class="speaker__company">NVIDIA</p>
+                <img
+                  class="speaker__logo"
+                  src="assets/company_logo/Frame%203-1.png"
+                  alt="NVIDIA"
+                  width="163"
+                  height="50"
+                  loading="lazy"
+                />
               </div>
             </li>
             <li class="speaker">
               <div class="speaker__photo">
-                <img src="assets/speakers/wee-hyong-tok.png" alt="" width="480" height="480" loading="lazy" />
+                <img
+                  src="assets/speakers/Wee%20Hyong%20Tok%201.png"
+                  alt=""
+                  width="310"
+                  height="300"
+                  loading="lazy"
+                />
               </div>
               <div class="speaker__body">
                 <h3 class="speaker__name">
@@ -193,12 +234,25 @@
                   >
                 </h3>
                 <p class="speaker__role">Partner Director, Data &amp; AI</p>
-                <p class="speaker__company">Microsoft</p>
+                <img
+                  class="speaker__logo"
+                  src="assets/company_logo/Group.png"
+                  alt="Microsoft"
+                  width="150"
+                  height="32"
+                  loading="lazy"
+                />
               </div>
             </li>
             <li class="speaker">
               <div class="speaker__photo">
-                <img src="assets/speakers/jenny-jau.png" alt="" width="480" height="480" loading="lazy" />
+                <img
+                  src="assets/speakers/Jenny%20Jau%201.png"
+                  alt=""
+                  width="310"
+                  height="300"
+                  loading="lazy"
+                />
               </div>
               <div class="speaker__body">
                 <h3 class="speaker__name">
@@ -208,12 +262,25 @@
                   >
                 </h3>
                 <p class="speaker__role">Director, Generative AI Visual Media</p>
-                <p class="speaker__company">Amazon</p>
+                <img
+                  class="speaker__logo"
+                  src="assets/company_logo/amazon-logo-black-transparent%201.png"
+                  alt="Amazon"
+                  width="127"
+                  height="38"
+                  loading="lazy"
+                />
               </div>
             </li>
             <li class="speaker">
               <div class="speaker__photo">
-                <img src="assets/speakers/denny-lee.png" alt="" width="480" height="480" loading="lazy" />
+                <img
+                  src="assets/speakers/1779147257803%201.png"
+                  alt=""
+                  width="310"
+                  height="300"
+                  loading="lazy"
+                />
               </div>
               <div class="speaker__body">
                 <h3 class="speaker__name">
@@ -223,12 +290,25 @@
                   >
                 </h3>
                 <p class="speaker__role">PM Director, Developer Relations, Data &amp; AI</p>
-                <p class="speaker__company">Databricks</p>
+                <img
+                  class="speaker__logo"
+                  src="assets/company_logo/image%2038.png"
+                  alt="Databricks"
+                  width="180"
+                  height="48"
+                  loading="lazy"
+                />
               </div>
             </li>
             <li class="speaker">
               <div class="speaker__photo">
-                <img src="assets/speakers/robert-chen.png" alt="" width="480" height="480" loading="lazy" />
+                <img
+                  src="assets/speakers/Robert%20Chen%201.png"
+                  alt=""
+                  width="310"
+                  height="300"
+                  loading="lazy"
+                />
               </div>
               <div class="speaker__body">
                 <h3 class="speaker__name">
@@ -241,162 +321,157 @@
                   >
                 </h3>
                 <p class="speaker__role">CTO, AI &amp; Agentic Systems</p>
-                <p class="speaker__company">Appier</p>
+                <img
+                  class="speaker__logo"
+                  src="assets/company_logo/image%2037.png"
+                  alt="Appier"
+                  width="96"
+                  height="40"
+                  loading="lazy"
+                />
               </div>
             </li>
           </ul>
         </div>
       </section>
 
-      <section class="section" id="agenda" aria-labelledby="agenda-title">
+      <section class="section section--agenda" id="agenda" aria-labelledby="agenda-title">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title" id="agenda-title">Agenda</h2>
-            <p class="section__lead">All times Pacific (PT).</p>
+            <h2 class="section__title" id="agenda-title">Event agenda</h2>
+            <p class="section__lead">
+              Saturday, October 24, 2026 · 1:30 – 6:30 PM PT
+            </p>
           </div>
 
           <ol class="agenda">
             <li class="agenda__item">
-              <div class="agenda__time">12:30 – 1:00<span>(30 min)</span></div>
+              <div class="agenda__time">1:30 – 2:00 PM<span>(30 min)</span></div>
               <div class="agenda__body">
-                <h3>Check-in &amp; Networking</h3>
+                <h3>Speaker Arrival &amp; Networking</h3>
               </div>
             </li>
             <li class="agenda__item">
-              <div class="agenda__time">1:00 – 1:30<span>(30 min)</span></div>
+              <div class="agenda__time">2:00 – 2:15 PM<span>(15 min)</span></div>
               <div class="agenda__body">
-                <h3>Opening Remarks &amp; VIP Speech &amp; Group Photo</h3>
-                <p class="speakers-line">Host: Josephine Lin, Amazon</p>
+                <h3>Welcome &amp; Opening Remarks</h3>
               </div>
             </li>
             <li class="agenda__item">
-              <div class="agenda__time">1:30 – 2:00<span>(30 min)</span></div>
+              <div class="agenda__time">2:15 – 3:15 PM<span>(60 min)</span></div>
               <div class="agenda__body">
-                <h3>Keynote #1: Agentic AI and Taiwan’s National Alliance in Finance &amp; Healthcare</h3>
-                <p class="speakers-line">Ethan Tu · Founder, Taiwan AI Labs</p>
-              </div>
-            </li>
-            <li class="agenda__item">
-              <div class="agenda__time">2:00 – 2:30<span>(30 min)</span></div>
-              <div class="agenda__body">
-                <h3>Keynote #2: Super-human and Proactive Audio AI Systems</h3>
+                <h3>Panel 1: Talent Evolution — Skills &amp; Profiles in the AI Era</h3>
                 <p class="speakers-line">
-                  Shyam Gollakota · Professor of CSE, UW · Co-founder of Hearvana AI
+                  Panelists: JC Pan · Elaine Lu · Robert Chen<br />
+                  Moderator: Wanli Lau
                 </p>
+                <p>45-minute discussion + 15-minute audience Q&amp;A</p>
               </div>
             </li>
             <li class="agenda__item">
-              <div class="agenda__time">2:30 – 2:45<span>(15 min)</span></div>
+              <div class="agenda__time">3:15 – 3:30 PM<span>(15 min)</span></div>
               <div class="agenda__body">
-                <h3>Coffee Break</h3>
+                <h3>Break</h3>
               </div>
             </li>
             <li class="agenda__item">
-              <div class="agenda__time">2:45 – 3:15<span>(30 min)</span></div>
+              <div class="agenda__time">3:30 – 4:30 PM<span>(60 min)</span></div>
               <div class="agenda__body">
-                <h3>Keynote #3: AI purpose-built Cloud</h3>
-                <p class="speakers-line">Elaine Lu · VP of Engineering Operations, CoreWeave</p>
-              </div>
-            </li>
-            <li class="agenda__item">
-              <div class="agenda__time">3:15 – 3:45<span>(30 min)</span></div>
-              <div class="agenda__body">
-                <h3>Lightning Talks: AI in Action Across Industries</h3>
-                <p>
-                  <strong>3:15 – 3:25</strong> · Power Grid Modernization and Energy Management in the New Era of AI
-                  — Kwok W. Cheung, CEO, KC-Exousia Consulting
+                <h3>Panel 2: Product Evolution — From LLMs to Agentic AI</h3>
+                <p class="speakers-line">
+                  Panelists: Denny Lee · Jenny Jau · Wee Hyong Tok<br />
+                  Moderator: Ai-Jung “Lily” Li
                 </p>
-                <p>
-                  <strong>3:25 – 3:35</strong> · Unlocking the Future of Accounting with Generative AI — Miriam Teng,
-                  Principal Accounting Manager, Amazon
-                </p>
-                <p>
-                  <strong>3:35 – 3:45</strong> · AI-Driven Entrepreneurship and the Reinvention of the Entertainment
-                  Industry — Hubert Tsai, Co-founder &amp; CTO, Spuree (formerly Cheehoo)
-                </p>
+                <p>45-minute discussion + 15-minute audience Q&amp;A</p>
               </div>
             </li>
             <li class="agenda__item">
-              <div class="agenda__time">3:45 – 4:00<span>(15 min)</span></div>
+              <div class="agenda__time">4:30 – 4:45 PM<span>(15 min)</span></div>
               <div class="agenda__body">
-                <h3>Coffee Break</h3>
+                <h3>Break</h3>
               </div>
             </li>
             <li class="agenda__item">
-              <div class="agenda__time">4:00 – 4:45<span>(45 min)</span></div>
+              <div class="agenda__time">4:45 – 6:15 PM<span>(90 min)</span></div>
               <div class="agenda__body">
-                <h3>Panel Discussions</h3>
-                <p>
-                  Three panels were curated based on attendee registration interests, featuring industry leaders,
-                  interactive Q&amp;A, and networking opportunities.
-                </p>
-                <p class="speakers-line">Details under Panels below.</p>
+                <h3>Career Roundtables</h3>
               </div>
             </li>
             <li class="agenda__item">
-              <div class="agenda__time">4:45 – 5:00</div>
+              <div class="agenda__time">6:15 – 6:30 PM<span>(15 min)</span></div>
               <div class="agenda__body">
-                <h3>Closing &amp; Networking</h3>
+                <h3>Open Networking &amp; Closing</h3>
               </div>
             </li>
           </ol>
         </div>
       </section>
 
-      <section class="section section--alt" id="panels" aria-labelledby="panels-title">
+      <section class="section section--roundtables" id="roundtables" aria-labelledby="roundtables-title">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title" id="panels-title">Panel speakers &amp; moderators</h2>
+            <h2 class="section__title" id="roundtables-title">Career Roundtable Mentors</h2>
             <p class="section__lead">
-              Three panels were curated based on attendee registration interests, featuring industry leaders,
-              interactive Q&amp;A, and networking opportunities.
+              Join small-group conversations with experienced technology leaders and learn from
+              their career journeys across engineering, product, design, AI, and business.
             </p>
           </div>
 
-          <div class="panels">
-            <article class="panel">
-              <p class="panel__label">Panel #1</p>
-              <h3 class="panel__title">Startup Journeys &amp; Lessons Learned</h3>
-              <ul class="panel__people">
-                <li><strong>Jonathan Chang</strong> — Investor, Change Paradox Ventures</li>
-                <li><strong>Hubert Tsai</strong> — Founder &amp; CTO, Spuree (formerly Cheehoo)</li>
-                <li><strong>Derrick Chiang</strong> — Founder &amp; CEO, Athleo.ai</li>
-              </ul>
-              <p class="panel__mod">
-                <strong>Moderator:</strong> Will Yang — Principal Product Designer, Tomo (ex-Microsoft Design Manager)
-              </p>
-            </article>
-
-            <article class="panel">
-              <p class="panel__label">Panel #2</p>
-              <h3 class="panel__title">Career Transitions &amp; Networking</h3>
-              <ul class="panel__people">
-                <li><strong>Jodie Su</strong> — Senior Manager, AMD</li>
-                <li><strong>Andrea Yao</strong> — From Education to Product Lead, DocuSign</li>
-                <li><strong>Thomas Wang</strong> — Engineer at TikTok + Real Real Estate Realtor at KW</li>
-              </ul>
-              <p class="panel__mod">
-                <strong>Moderator:</strong> Wanli Lau — Senior Director of Data Science (ex-Expedia)
-              </p>
-            </article>
-
-            <article class="panel">
-              <p class="panel__label">Panel #3</p>
-              <h3 class="panel__title">Leadership &amp; Management</h3>
-              <ul class="panel__people">
-                <li><strong>Elaine Lu</strong> — VP of Engineering Operations, CoreWeave</li>
-                <li><strong>Tina Wang</strong> — Technical PM, Google (ex-Microsoft Sr. Director)</li>
-              </ul>
-            </article>
-
-            <article class="panel">
-              <p class="panel__label">Panel #4</p>
-              <h3 class="panel__title">From Sensing to Action: The Closed-Loop Revolution of AIoT</h3>
-              <ul class="panel__people">
-                <li><strong>Kevin Tseng</strong> — CEO, Atomrock</li>
+          <div class="tracks">
+            <article class="track">
+              <h3 class="track__title">Engineering &amp; Technical Leadership</h3>
+              <ul class="track__mentors">
                 <li>
-                  <strong>Karl Joseph Weaver 魏卡爾</strong> — Asia-Pacific Business Development Director, Newport
-                  Technologies
+                  <span class="track__name">Frank Shyu</span>
+                  <span class="track__role">Research Engineering Manager, AI/ML · Meta</span>
+                </li>
+                <li>
+                  <span class="track__name">Kai-Jen Lin</span>
+                  <span class="track__role">Director, Server Customer Debug Engineering · AMD</span>
+                </li>
+                <li>
+                  <span class="track__name">Julie (Rushin) Liu</span>
+                  <span class="track__role">Associate Director of Engineering · AT&amp;T</span>
+                </li>
+                <li>
+                  <span class="track__name">Vivien Hung</span>
+                  <span class="track__role">Principal Software Engineer · Microsoft</span>
+                </li>
+                <li>
+                  <span class="track__name">Ming-Chuan Wu</span>
+                  <span class="track__role"
+                    >Senior Principal Product Architect &amp; Innovation Incubator · Apple</span
+                  >
+                </li>
+              </ul>
+            </article>
+
+            <article class="track">
+              <h3 class="track__title">Product &amp; AI Transformation</h3>
+              <ul class="track__mentors">
+                <li>
+                  <span class="track__name">Miriam Teng</span>
+                  <span class="track__role"
+                    >Senior Manager, Product Management - Tech · Amazon</span
+                  >
+                </li>
+                <li>
+                  <span class="track__name">YM Chen</span>
+                  <span class="track__role">Senior Manager · Apple</span>
+                </li>
+              </ul>
+            </article>
+
+            <article class="track">
+              <h3 class="track__title">Design, UX &amp; Human-Centered AI</h3>
+              <ul class="track__mentors">
+                <li>
+                  <span class="track__name">Yi-Min Huang</span>
+                  <span class="track__role">Research Manager · Meta</span>
+                </li>
+                <li>
+                  <span class="track__name">Sheng Kai Tang</span>
+                  <span class="track__role">Head of XR UX Lab · Samsung Research America</span>
                 </li>
               </ul>
             </article>
@@ -404,31 +479,26 @@
         </div>
       </section>
 
-      <section class="section" id="venue" aria-labelledby="venue-title">
+      <section class="section section--venue" id="venue" aria-labelledby="venue-title">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title" id="venue-title">Venue and parking</h2>
-            <p class="section__lead">University of Washington campus · Saturday, Nov 15, 2026</p>
+            <h2 class="section__title" id="venue-title">Venue</h2>
+            <p class="section__lead">Saturday, October 24, 2026 · 1:30 – 6:30 PM PT</p>
           </div>
 
           <div class="venue-grid">
-            <div class="venue-block">
-              <h3>Event venue</h3>
-              <p>Physics and Astronomy Auditorium (PAA 102)</p>
-            </div>
-            <div class="venue-block">
-              <h3>Dinner venue</h3>
-              <p>William H. Foege Genome Science Building (Vista Cafe)</p>
-            </div>
             <div class="venue-block venue-block--wide">
-              <h3>Parking</h3>
-              <p class="venue-note">
-                Due to the UW football game on the same day, event parking is $50 and traffic around campus will be
-                heavy.
-              </p>
-              <p class="venue-note">
-                We strongly recommend taking public transportation, using Rideshare (Uber/Lyft), or carpooling, and plan
-                to arrive early.
+              <h3>Event venue</h3>
+              <p>University of Washington — Oak Hall Denny Room</p>
+              <p>
+                Venue details and photos:
+                <a
+                  class="venue-link"
+                  href="https://hfs.uw.edu/conference-services/meeting-and-event-space/oak-hall-denny-room/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >hfs.uw.edu · Oak Hall Denny Room</a
+                >
               </p>
             </div>
           </div>
@@ -437,12 +507,89 @@
     </main>
 
     <footer class="site-footer">
-      <div class="container site-footer__inner">
-        <p>© 2026 NATEA Seattle Chapter · U.S. Taiwan Tech Connect</p>
-        <p><a href="mailto:uttc@natea.org">uttc@natea.org</a></p>
+      <div class="site-footer__organizers">
+        <div class="container site-footer__organizers-inner">
+          <ul class="organizers">
+            <li>
+              <img
+                src="assets/organize/NATEA%20Seattle.png"
+                alt="NATEA Seattle"
+                width="420"
+                height="128"
+                loading="lazy"
+              />
+            </li>
+            <li>
+              <img
+                src="assets/organize/TJCCS.png"
+                alt="TJCCS"
+                width="128"
+                height="128"
+                loading="lazy"
+              />
+            </li>
+            <li>
+              <img
+                src="assets/organize/300645621_434309935397325_9090643876086052321_n.jpg"
+                alt="UW TGSA"
+                width="128"
+                height="128"
+                loading="lazy"
+              />
+            </li>
+            <li>
+              <img
+                src="assets/organize/twzn_logo.png"
+                alt="TWZN"
+                width="320"
+                height="63"
+                loading="lazy"
+              />
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="site-footer__bar">
+        <div class="container site-footer__inner">
+          <p>© 2026 NATEA Seattle Chapter · U.S. Taiwan Tech Connect</p>
+          <nav class="site-footer__meta" aria-label="Contact and social">
+            <a class="site-footer__email" href="mailto:uttc@natea.org">uttc@natea.org</a>
+            <a
+              class="social-link"
+              href="https://www.facebook.com/groups/natea.seattle"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="NATEA Seattle on Facebook"
+              title="Facebook"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  fill="currentColor"
+                  d="M22 12.07C22 6.51 17.52 2 12 2S2 6.51 2 12.07c0 5.02 3.66 9.18 8.44 9.93v-7.02H7.9v-2.91h2.54V9.84c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.75 8.44-4.91 8.44-9.93Z"
+                />
+              </svg>
+            </a>
+            <a
+              class="social-link"
+              href="https://www.linkedin.com/company/north-america-taiwanese-engineering-science-association/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="NATEA on LinkedIn"
+              title="LinkedIn"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  fill="currentColor"
+                  d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0Z"
+                />
+              </svg>
+            </a>
+          </nav>
+        </div>
       </div>
     </footer>
 
-    <script src="js/main.js?v=20260810a" defer></script>
+    <script src="js/main.js?v=20260811ab" defer></script>
   </body>
 </html>
