@@ -18,7 +18,7 @@ The site is a lightweight one-pager so attendees can learn about the program, se
 | **When** | Saturday, Oct 24, 2026 · 1:30 – 6:30 PM PT |
 | **Where** | University of Washington — Oak Hall Denny Room |
 | **Contact** | [uttc@natea.org](mailto:uttc@natea.org) |
-| **RSVP** | Google Form linked from the hero CTA and header |
+| **RSVP** | Zeffy linked from the hero CTA and header |
 
 ## Run locally
 
