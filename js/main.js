@@ -11,18 +11,22 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
-  /* —— Nav —— */
+  /* —— Nav (mobile panel) —— */
   var toggle = document.querySelector(".nav-toggle");
-  var nav = document.getElementById("site-nav");
+  var nav = document.getElementById("mobile-nav");
   if (toggle && nav) {
     toggle.addEventListener("click", function () {
       var open = nav.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      document.body.classList.toggle("nav-open", open);
     });
     nav.querySelectorAll("a").forEach(function (a) {
       a.addEventListener("click", function () {
         nav.classList.remove("is-open");
         toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
+        document.body.classList.remove("nav-open");
       });
     });
   }
@@ -127,8 +131,8 @@
       var scale = Math.max(W / nw, H / nh);
       var sw = W / scale;
       var sh = H / scale;
-      var posX = W < 768 ? 0.75 : W < 900 ? 0.7 : 0.62;
-      var posY = 0.48;
+      var posX = W < 768 ? 0.56 : W < 900 ? 0.58 : 0.62;
+      var posY = W < 900 ? 0.4 : 0.48;
       cover.sw = sw;
       cover.sh = sh;
       cover.sx = Math.max(0, Math.min(nw - sw, (nw - sw) * posX));
@@ -137,8 +141,8 @@
 
     function resize() {
       var rect = hero.getBoundingClientRect();
-      W = Math.max(1, Math.floor(rect.width * 1.04));
-      H = Math.max(1, Math.floor(rect.height * 1.04));
+      W = Math.max(1, Math.floor(rect.width));
+      H = Math.max(1, Math.floor(rect.height));
       canvas.width = Math.floor(W * dpr);
       canvas.height = Math.floor(H * dpr);
       canvas.style.width = W + "px";
@@ -169,7 +173,7 @@
       var scale = cover.sw / W;
       var ampMax = Math.min(24, H * 0.032);
 
-      ctx.fillStyle = "#f9f7fd";
+      ctx.fillStyle = "#f4f6fb";
       ctx.fillRect(0, 0, W, H);
 
       for (var y = 0; y < H; y += rowStep) {

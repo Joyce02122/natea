@@ -20,7 +20,7 @@ Do not invent speakers, times, venues, partners, or URLs. Rearrange only for cla
 | 2 | **Hero** | Title, tagline, date + UW, **Reserve your seat** |
 | 3 | **Featured speakers** | Six headliners + roles + company logos when assets exist |
 | 4 | **Event agenda** | Full schedule, PT times, panel labels + people lines |
-| 5 | **Career Roundtables** | Three themes; mentor **name + role only** (no long bios/photos) |
+| 5 | **Career Roundtables** | Three themes; small mentor photo + **name + role** (no long Career Focus bios) |
 | 6 | **Venue** | Oak Hall Denny Room + official UW link |
 | 7 | **Footer** | Organizer logos strip; email; Facebook; LinkedIn |
 
