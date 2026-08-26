@@ -168,8 +168,8 @@
       var scale = Math.max(W / nw, H / nh);
       var sw = W / scale;
       var sh = H / scale;
-      var posX = W < 768 ? 0.56 : W < 900 ? 0.58 : 0.62;
-      var posY = W < 900 ? 0.4 : 0.48;
+      var posX = W < 768 ? 0.56 : W < 900 ? 0.58 : 0.67;
+      var posY = W < 900 ? 0.4 : 0.46;
       cover.sw = sw;
       cover.sh = sh;
       cover.sx = Math.max(0, Math.min(nw - sw, (nw - sw) * posX));
