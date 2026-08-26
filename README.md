@@ -43,4 +43,4 @@ RULES.md
 ## Notes
 
 - Static HTML / CSS / minimal JS — no build step.
-- Current line: GitHub release **`v2.0.1`**.
+- Current line: GitHub release **`v2.0.2`**.

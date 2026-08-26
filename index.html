@@ -16,7 +16,7 @@
     />
     <link rel="icon" href="assets/favicon-ribbon.png?v=20260811a" type="image/png" sizes="any" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=20260811a" />
-    <link rel="stylesheet" href="css/styles.css?v=20260812h" />
+    <link rel="stylesheet" href="css/styles.css?v=20260826c" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -58,17 +58,37 @@
           </a>
         </nav>
 
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="mobile-nav"
-          aria-label="Open menu"
-        >
-          <span class="nav-toggle__bars" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </span>
-        </button>
+        <div class="site-header__actions">
+          <a
+            class="btn btn--primary btn--header-rsvp"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSffxCqk_LoCptUi9ynlW-Inpm6NsLrjcWyeMwj1Ae0CpyNlfQ/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            RSVP
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M14 5h5v5M19 5l-9 9M10 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-4"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+            aria-label="Open menu"
+          >
+            <span class="nav-toggle__bars" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+          </button>
+        </div>
       </div>
 
       <nav id="mobile-nav" class="nav-panel" aria-label="Mobile">
@@ -76,12 +96,6 @@
         <a href="#agenda">Agenda</a>
         <a href="#roundtables">Roundtables</a>
         <a href="#venue">Venue</a>
-        <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSffxCqk_LoCptUi9ynlW-Inpm6NsLrjcWyeMwj1Ae0CpyNlfQ/viewform"
-          target="_blank"
-          rel="noopener noreferrer"
-          >RSVP</a
-        >
       </nav>
     </header>
 
@@ -701,6 +715,6 @@
       </div>
     </footer>
 
-    <script src="js/main.js?v=20260812b" defer></script>
+    <script src="js/main.js?v=20260826c" defer></script>
   </body>
 </html>
