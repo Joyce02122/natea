@@ -112,23 +112,24 @@
 
     if (!blocks.length) return;
 
-    if (mobileMq.matches || reduced || !("IntersectionObserver" in window)) {
+    blocks.forEach(function (el) {
+      el.classList.add("reveal");
+    });
+
+    if (reduced || !("IntersectionObserver" in window)) {
       blocks.forEach(function (el) {
         el.classList.add("is-in");
       });
       return;
     }
 
-    blocks.forEach(function (el) {
-      el.classList.add("reveal");
-    });
+    var mobile = mobileMq.matches;
 
     var io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
           var el = entry.target;
-          /* Soft stagger for sibling items inside a group */
           var parent = el.parentElement;
           if (
             parent &&
@@ -139,14 +140,19 @@
             var siblings = parent.querySelectorAll(".reveal");
             var idx = Array.prototype.indexOf.call(siblings, el);
             if (idx >= 0) {
-              el.style.transitionDelay = Math.min(idx * 0.07, 0.42) + "s";
+              var step = mobile ? 0.03 : 0.07;
+              var cap = mobile ? 0.12 : 0.42;
+              el.style.transitionDelay = Math.min(idx * step, cap) + "s";
             }
           }
           el.classList.add("is-in");
           io.unobserve(el);
         });
       },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.12 }
+      {
+        rootMargin: mobile ? "0px 0px 8% 0px" : "0px 0px -10% 0px",
+        threshold: mobile ? 0.06 : 0.12,
+      }
     );
 
     blocks.forEach(function (el) {
@@ -157,7 +163,7 @@
   /*
    * Hero: single full-bleed photo, one canvas surface only.
    * Soft liquid warp on mid–right bands; left (type) + lower seam stay nearly still.
-   * No ribbon overlay layer — avoids double edges / stacked cut-outs.
+   * Same motion timing on mobile and desktop — grid scales with viewport size.
    */
   function initHeroWaves() {
     var hero = document.querySelector(".hero");
@@ -182,21 +188,6 @@
     var ready = false;
     var nw = 0;
     var nh = 0;
-    var isScrolling = false;
-    var scrollIdleTimer = 0;
-    var heroVisible = true;
-    var mobileFrameSkip = 0;
-
-    function markScrolling() {
-      if (W >= 900) return;
-      isScrolling = true;
-      clearTimeout(scrollIdleTimer);
-      scrollIdleTimer = setTimeout(function () {
-        isScrolling = false;
-      }, 140);
-    }
-
-    window.addEventListener("scroll", markScrolling, { passive: true });
 
     function smoothstep(a, b, x) {
       var t = Math.max(0, Math.min(1, (x - a) / (b - a)));
@@ -232,11 +223,8 @@
 
     /** Spatial mask: 0 left/bottom (type + seam), soft rise into ribbon zone */
     function influence(nx, ny) {
-      var mobile = W < 900;
-      var hx = smoothstep(mobile ? 0.14 : 0.24, mobile ? 0.82 : 0.68, nx);
-      var hy =
-        smoothstep(mobile ? 0.04 : 0.06, mobile ? 0.28 : 0.24, ny) *
-        (1 - smoothstep(mobile ? 0.72 : 0.76, mobile ? 0.95 : 0.93, ny));
+      var hx = smoothstep(0.24, 0.68, nx);
+      var hy = smoothstep(0.06, 0.24, ny) * (1 - smoothstep(0.76, 0.93, ny));
       return hx * hy;
     }
 
@@ -246,31 +234,11 @@
         return;
       }
 
-      var mobile = W < 900;
-
-      if (mobile && (!heroVisible || isScrolling)) {
-        raf = requestAnimationFrame(frame);
-        return;
-      }
-
-      if (mobile) {
-        mobileFrameSkip += 1;
-        if (mobileFrameSkip % 2 !== 0) {
-          raf = requestAnimationFrame(frame);
-          return;
-        }
-      }
-
-      var t = (now - t0) * 0.001 * (mobile ? 1.15 : 1);
-      /* Coarser grid on mobile keeps rAF smooth; slightly stronger motion reads on small screens */
-      var rowStep = mobile
-        ? Math.max(5, Math.round(H / 110))
-        : Math.max(3, Math.round(H / 160));
-      var colStep = mobile
-        ? Math.max(6, Math.round(W / 85))
-        : Math.max(4, Math.round(W / 120));
+      var t = (now - t0) * 0.001;
+      var rowStep = Math.max(3, Math.round(H / 160));
+      var colStep = Math.max(4, Math.round(W / 120));
       var scale = cover.sw / W;
-      var ampMax = mobile ? Math.min(38, H * 0.05) : Math.min(24, H * 0.032);
+      var ampMax = Math.min(24, H * 0.032);
 
       ctx.fillStyle = "#f4f6fb";
       ctx.fillRect(0, 0, W, H);
@@ -329,17 +297,6 @@
       if (!nw) return;
       ready = true;
       resize();
-
-      if ("IntersectionObserver" in window) {
-        var heroIo = new IntersectionObserver(
-          function (entries) {
-            heroVisible = entries[0] && entries[0].isIntersecting;
-          },
-          { rootMargin: "80px 0px", threshold: 0 }
-        );
-        heroIo.observe(hero);
-      }
-
       hero.classList.add("is-warping");
       cancelAnimationFrame(raf);
       t0 = performance.now();
