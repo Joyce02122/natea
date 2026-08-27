@@ -34,8 +34,10 @@
         header.classList.remove("is-hidden");
       } else if (mobileMq.matches) {
         if (y > lastScrollY) {
+          header.classList.remove("is-instant");
           header.classList.add("is-hidden");
         } else if (y < lastScrollY) {
+          header.classList.add("is-instant");
           header.classList.remove("is-hidden");
         }
       } else if (y > lastScrollY + threshold) {
@@ -47,6 +49,10 @@
     }
 
     function onScroll() {
+      if (mobileMq.matches) {
+        updateHeaderVisibility();
+        return;
+      }
       if (!scrollTicking) {
         scrollTicking = true;
         window.requestAnimationFrame(updateHeaderVisibility);
@@ -106,16 +112,16 @@
 
     if (!blocks.length) return;
 
-    blocks.forEach(function (el) {
-      el.classList.add("reveal");
-    });
-
     if (mobileMq.matches || reduced || !("IntersectionObserver" in window)) {
       blocks.forEach(function (el) {
         el.classList.add("is-in");
       });
       return;
     }
+
+    blocks.forEach(function (el) {
+      el.classList.add("reveal");
+    });
 
     var io = new IntersectionObserver(
       function (entries) {
@@ -176,6 +182,21 @@
     var ready = false;
     var nw = 0;
     var nh = 0;
+    var isScrolling = false;
+    var scrollIdleTimer = 0;
+    var heroVisible = true;
+    var mobileFrameSkip = 0;
+
+    function markScrolling() {
+      if (W >= 900) return;
+      isScrolling = true;
+      clearTimeout(scrollIdleTimer);
+      scrollIdleTimer = setTimeout(function () {
+        isScrolling = false;
+      }, 140);
+    }
+
+    window.addEventListener("scroll", markScrolling, { passive: true });
 
     function smoothstep(a, b, x) {
       var t = Math.max(0, Math.min(1, (x - a) / (b - a)));
@@ -226,6 +247,20 @@
       }
 
       var mobile = W < 900;
+
+      if (mobile && (!heroVisible || isScrolling)) {
+        raf = requestAnimationFrame(frame);
+        return;
+      }
+
+      if (mobile) {
+        mobileFrameSkip += 1;
+        if (mobileFrameSkip % 2 !== 0) {
+          raf = requestAnimationFrame(frame);
+          return;
+        }
+      }
+
       var t = (now - t0) * 0.001 * (mobile ? 1.15 : 1);
       /* Coarser grid on mobile keeps rAF smooth; slightly stronger motion reads on small screens */
       var rowStep = mobile
@@ -294,6 +329,17 @@
       if (!nw) return;
       ready = true;
       resize();
+
+      if ("IntersectionObserver" in window) {
+        var heroIo = new IntersectionObserver(
+          function (entries) {
+            heroVisible = entries[0] && entries[0].isIntersecting;
+          },
+          { rootMargin: "80px 0px", threshold: 0 }
+        );
+        heroIo.observe(hero);
+      }
+
       hero.classList.add("is-warping");
       cancelAnimationFrame(raf);
       t0 = performance.now();
