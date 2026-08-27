@@ -49,10 +49,6 @@
     }
 
     function onScroll() {
-      if (mobileMq.matches) {
-        updateHeaderVisibility();
-        return;
-      }
       if (!scrollTicking) {
         scrollTicking = true;
         window.requestAnimationFrame(updateHeaderVisibility);
@@ -125,13 +121,25 @@
 
     var mobile = mobileMq.matches;
 
+    /* Speakers sit right under hero — show immediately so upward scroll never blanks */
+    if (mobile) {
+      document.querySelectorAll(".section--speakers .reveal").forEach(function (el) {
+        el.classList.add("is-in");
+      });
+    }
+
     var io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
           var el = entry.target;
+          if (el.classList.contains("is-in")) {
+            io.unobserve(el);
+            return;
+          }
           var parent = el.parentElement;
           if (
+            !mobile &&
             parent &&
             (el.classList.contains("speaker") ||
               el.classList.contains("track") ||
@@ -140,9 +148,7 @@
             var siblings = parent.querySelectorAll(".reveal");
             var idx = Array.prototype.indexOf.call(siblings, el);
             if (idx >= 0) {
-              var step = mobile ? 0.03 : 0.07;
-              var cap = mobile ? 0.12 : 0.42;
-              el.style.transitionDelay = Math.min(idx * step, cap) + "s";
+              el.style.transitionDelay = Math.min(idx * 0.07, 0.42) + "s";
             }
           }
           el.classList.add("is-in");
@@ -150,12 +156,14 @@
         });
       },
       {
-        rootMargin: mobile ? "0px 0px 8% 0px" : "0px 0px -10% 0px",
-        threshold: mobile ? 0.06 : 0.12,
+        /* Mobile: reveal well before entering viewport — kills blank flash on fast scroll */
+        rootMargin: mobile ? "55% 0px 55% 0px" : "0px 0px -10% 0px",
+        threshold: mobile ? 0 : 0.12,
       }
     );
 
     blocks.forEach(function (el) {
+      if (mobile && el.closest(".section--speakers")) return;
       io.observe(el);
     });
   })();
@@ -163,7 +171,8 @@
   /*
    * Hero: single full-bleed photo, one canvas surface only.
    * Soft liquid warp on mid–right bands; left (type) + lower seam stay nearly still.
-   * Same motion timing on mobile and desktop — grid scales with viewport size.
+   * Same motion timing/amplitude mobile+desktop. On mobile: freeze last frame while
+   * scrolling (keeps scroll smooth), resume when idle so ribbons stay alive.
    */
   function initHeroWaves() {
     var hero = document.querySelector(".hero");
@@ -179,7 +188,8 @@
     var ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var mobileMq = window.matchMedia("(max-width: 899px)");
+    var dpr = Math.min(window.devicePixelRatio || 1, mobileMq.matches ? 1.5 : 2);
     var W = 0;
     var H = 0;
     var t0 = performance.now();
@@ -188,6 +198,28 @@
     var ready = false;
     var nw = 0;
     var nh = 0;
+    var isScrolling = false;
+    var scrollIdleTimer = 0;
+    var heroVisible = true;
+    var pausedAt = 0;
+
+    function markScrolling() {
+      if (!mobileMq.matches) return;
+      if (!isScrolling) {
+        isScrolling = true;
+        pausedAt = performance.now();
+      }
+      clearTimeout(scrollIdleTimer);
+      scrollIdleTimer = setTimeout(function () {
+        if (pausedAt) {
+          t0 += performance.now() - pausedAt;
+          pausedAt = 0;
+        }
+        isScrolling = false;
+      }, 120);
+    }
+
+    window.addEventListener("scroll", markScrolling, { passive: true });
 
     function smoothstep(a, b, x) {
       var t = Math.max(0, Math.min(1, (x - a) / (b - a)));
@@ -234,9 +266,16 @@
         return;
       }
 
+      /* Keep last painted frame while scrolling / off-screen — same motion when idle */
+      if (mobileMq.matches && (isScrolling || !heroVisible)) {
+        raf = requestAnimationFrame(frame);
+        return;
+      }
+
       var t = (now - t0) * 0.001;
-      var rowStep = Math.max(3, Math.round(H / 160));
-      var colStep = Math.max(4, Math.round(W / 120));
+      /* Coarser grid on narrow screens = cheaper draws; amplitude/timing unchanged */
+      var rowStep = Math.max(mobileMq.matches ? 5 : 3, Math.round(H / (mobileMq.matches ? 95 : 160)));
+      var colStep = Math.max(mobileMq.matches ? 6 : 4, Math.round(W / (mobileMq.matches ? 70 : 120)));
       var scale = cover.sw / W;
       var ampMax = Math.min(24, H * 0.032);
 
@@ -297,6 +336,17 @@
       if (!nw) return;
       ready = true;
       resize();
+
+      if ("IntersectionObserver" in window) {
+        var heroIo = new IntersectionObserver(
+          function (entries) {
+            heroVisible = !!(entries[0] && entries[0].isIntersecting);
+          },
+          { rootMargin: "60px 0px", threshold: 0 }
+        );
+        heroIo.observe(hero);
+      }
+
       hero.classList.add("is-warping");
       cancelAnimationFrame(raf);
       t0 = performance.now();
@@ -319,7 +369,7 @@
     window.addEventListener(
       "resize",
       function () {
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        dpr = Math.min(window.devicePixelRatio || 1, mobileMq.matches ? 1.5 : 2);
         resize();
       },
       { passive: true }

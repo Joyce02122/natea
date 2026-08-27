@@ -394,18 +394,17 @@ body.nav-open .site-header {
     padding-top: clamp(1.5rem, 4vw, 2.25rem);
   }
 
+  /* Opacity-only, early trigger — no translateY hole / blank flash on scroll up */
   .reveal {
     opacity: 0;
-    transform: translateY(0.55rem);
-    transition:
-      opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: opacity, transform;
+    transform: none;
+    transition: opacity 0.2s ease-out;
+    will-change: opacity;
   }
 
   .reveal.is-in {
     opacity: 1;
-    transform: translateY(0);
+    will-change: auto;
   }
 }
 
