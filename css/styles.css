@@ -323,14 +323,21 @@ body.nav-open .site-header {
 }
 
 @media (max-width: 899px) {
+  html {
+    background: #f5f6fb;
+  }
+
   .site-header {
     position: fixed;
     inset: 0 0 auto 0;
-    /* Match hero paper — soft fade, not a solid bar */
+    min-height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
+    /* Match hero paper — solid under notch, soft fade below */
     background: linear-gradient(
       180deg,
-      rgba(245, 246, 251, 0.62) 0%,
-      rgba(247, 245, 252, 0.28) 72%,
+      #f5f6fb 0%,
+      rgba(245, 246, 251, 0.88) calc(env(safe-area-inset-top, 0px) + 0.35rem),
+      rgba(247, 245, 252, 0.24) 72%,
       rgba(247, 245, 252, 0) 100%
     );
     backdrop-filter: blur(4px);
@@ -348,7 +355,7 @@ body.nav-open .site-header {
   }
 
   .site-header.is-scrolled {
-    background: rgba(247, 245, 252, 0.78);
+    background: rgba(247, 245, 252, 0.88);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-bottom-color: rgba(27, 27, 99, 0.05);
@@ -356,7 +363,11 @@ body.nav-open .site-header {
   }
 
   .site-header.is-hidden {
-    transform: translateY(calc(-1 * var(--header-h) - 1px));
+    transform: translateY(calc(-1 * var(--header-h) - env(safe-area-inset-top, 0px) - 1px));
+  }
+
+  .nav-panel {
+    top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
   }
 
   .site-header__actions {
@@ -373,6 +384,22 @@ body.nav-open .site-header {
 
   .brand__logo {
     max-width: min(9.5rem, 42vw);
+  }
+
+  .hero__waves {
+    transform: translateZ(0);
+  }
+
+  .section--speakers {
+    padding-top: clamp(1.5rem, 4vw, 2.25rem);
+  }
+
+  .reveal,
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
   }
 }
 
@@ -527,8 +554,13 @@ body.nav-open .site-header {
   -webkit-text-fill-color: transparent;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  filter: drop-shadow(0 0 14px rgba(247, 245, 252, 0.85))
-    drop-shadow(0 0 6px rgba(245, 246, 251, 0.65));
+}
+
+@media (min-width: 901px) {
+  .hero__title span {
+    filter: drop-shadow(0 0 14px rgba(247, 245, 252, 0.85))
+      drop-shadow(0 0 6px rgba(245, 246, 251, 0.65));
+  }
 }
 
 .hero__tagline {
@@ -593,26 +625,45 @@ body.nav-open .site-header {
 @media (max-width: 900px) {
   .hero {
     min-height: clamp(28rem, 86vw, 88svh);
-    overflow: hidden;
+    /* Clip ribbons in .hero__visual only — keep title from being cropped */
+    overflow: visible;
+  }
+
+  .hero__visual::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      102deg,
+      rgba(245, 246, 251, 0.86) 0%,
+      rgba(245, 246, 251, 0.42) 38%,
+      rgba(247, 245, 252, 0.12) 58%,
+      rgba(247, 245, 252, 0) 72%
+    );
   }
 
   .hero__inner {
     min-height: clamp(28rem, 86vw, 88svh);
     align-items: center;
-    padding: calc(var(--header-h) + 0.85rem) 0 3rem;
+    padding: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 0.85rem) 0 2.25rem;
   }
 
   .hero__copy {
-    max-width: min(100%, 24rem);
+    max-width: min(100%, 26rem);
   }
 
   .hero__title {
     font-size: clamp(1.9rem, 6.4vw, 2.85rem);
-    line-height: 1.1;
+    line-height: 1.24;
+    padding-block: 0.06em 0.1em;
   }
 
   .hero__title span {
     white-space: normal;
+    padding-block: 0.08em;
+    filter: none;
   }
 
   .hero__tagline {
@@ -654,6 +705,23 @@ body.nav-open .site-header {
   }
 }
 
+/* 7-inch tablet / small landscape: keep TECH CONNECT 2026 fully readable */
+@media (min-width: 601px) and (max-width: 900px) {
+  .hero__copy {
+    max-width: min(100%, 36rem);
+  }
+
+  .hero__title {
+    font-size: clamp(1.75rem, 4.6vw, 2.45rem);
+    line-height: 1.26;
+  }
+
+  .hero__title span:last-child {
+    max-width: 100%;
+    overflow: visible;
+  }
+}
+
 @media (max-width: 767px) {
   .hero {
     min-height: clamp(26rem, 96vw, 86svh);
@@ -662,7 +730,7 @@ body.nav-open .site-header {
   .hero__inner {
     min-height: clamp(26rem, 96vw, 86svh);
     align-items: center;
-    padding: calc(var(--header-h) + 0.65rem) 0 2.6rem;
+    padding: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 0.65rem) 0 2.25rem;
   }
 
   .hero__copy {
@@ -836,7 +904,23 @@ body.nav-open .site-header {
 
 @media (min-width: 1200px) {
   .hero__copy {
-    max-width: min(52rem, 64%);
+    max-width: min(54rem, 68%);
+  }
+}
+
+/* Large desktop: nowrap title must fit copy column — avoid clipping “2026” */
+@media (min-width: 1400px) {
+  .hero__copy {
+    max-width: min(56rem, 72%);
+  }
+
+  .hero__title {
+    font-size: clamp(2rem, 3.65vw, 4.3rem);
+  }
+
+  .hero__title span {
+    max-width: none;
+    padding-inline-end: 0.08em;
   }
 }
 

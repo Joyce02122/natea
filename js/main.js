@@ -6,7 +6,11 @@
   if (header) {
     var lastScrollY = window.scrollY;
     var scrollTicking = false;
-    var scrollThreshold = 10;
+    var mobileMq = window.matchMedia("(max-width: 899px)");
+
+    function scrollThreshold() {
+      return mobileMq.matches ? 2 : 10;
+    }
 
     function setHeaderScrolled() {
       header.classList.toggle("is-scrolled", window.scrollY > 8);
@@ -23,11 +27,20 @@
       }
 
       var y = window.scrollY;
-      if (y <= 8) {
+      var threshold = scrollThreshold();
+      var hideAfter = mobileMq.matches ? 16 : 8;
+
+      if (y <= hideAfter) {
         header.classList.remove("is-hidden");
-      } else if (y > lastScrollY + scrollThreshold) {
+      } else if (mobileMq.matches) {
+        if (y > lastScrollY) {
+          header.classList.add("is-hidden");
+        } else if (y < lastScrollY) {
+          header.classList.remove("is-hidden");
+        }
+      } else if (y > lastScrollY + threshold) {
         header.classList.add("is-hidden");
-      } else if (y < lastScrollY - scrollThreshold) {
+      } else if (y < lastScrollY - threshold) {
         header.classList.remove("is-hidden");
       }
       lastScrollY = y;
@@ -74,6 +87,7 @@
 
   /* —— Scroll reveal (sections + speaker cards) —— */
   (function initScrollReveal() {
+    var mobileMq = window.matchMedia("(max-width: 899px)");
     var reduced =
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -96,7 +110,7 @@
       el.classList.add("reveal");
     });
 
-    if (reduced || !("IntersectionObserver" in window)) {
+    if (mobileMq.matches || reduced || !("IntersectionObserver" in window)) {
       blocks.forEach(function (el) {
         el.classList.add("is-in");
       });
@@ -110,7 +124,12 @@
           var el = entry.target;
           /* Soft stagger for sibling items inside a group */
           var parent = el.parentElement;
-          if (parent && (el.classList.contains("speaker") || el.classList.contains("track") || el.classList.contains("agenda__item"))) {
+          if (
+            parent &&
+            (el.classList.contains("speaker") ||
+              el.classList.contains("track") ||
+              el.classList.contains("agenda__item"))
+          ) {
             var siblings = parent.querySelectorAll(".reveal");
             var idx = Array.prototype.indexOf.call(siblings, el);
             if (idx >= 0) {
@@ -168,7 +187,7 @@
       var scale = Math.max(W / nw, H / nh);
       var sw = W / scale;
       var sh = H / scale;
-      var posX = W < 768 ? 0.56 : W < 900 ? 0.58 : 0.67;
+      var posX = W < 768 ? 0.56 : W < 900 ? 0.58 : W < 1600 ? 0.67 : 0.7;
       var posY = W < 900 ? 0.4 : 0.46;
       cover.sw = sw;
       cover.sh = sh;
@@ -192,8 +211,11 @@
 
     /** Spatial mask: 0 left/bottom (type + seam), soft rise into ribbon zone */
     function influence(nx, ny) {
-      var hx = smoothstep(0.24, 0.68, nx);
-      var hy = smoothstep(0.06, 0.24, ny) * (1 - smoothstep(0.76, 0.93, ny));
+      var mobile = W < 900;
+      var hx = smoothstep(mobile ? 0.14 : 0.24, mobile ? 0.82 : 0.68, nx);
+      var hy =
+        smoothstep(mobile ? 0.04 : 0.06, mobile ? 0.28 : 0.24, ny) *
+        (1 - smoothstep(mobile ? 0.72 : 0.76, mobile ? 0.95 : 0.93, ny));
       return hx * hy;
     }
 
@@ -203,12 +225,17 @@
         return;
       }
 
-      var t = (now - t0) * 0.001;
-      /* Dense grid softens banding / "stacked strip" look */
-      var rowStep = Math.max(3, Math.round(H / 160));
-      var colStep = Math.max(4, Math.round(W / 120));
+      var mobile = W < 900;
+      var t = (now - t0) * 0.001 * (mobile ? 1.15 : 1);
+      /* Coarser grid on mobile keeps rAF smooth; slightly stronger motion reads on small screens */
+      var rowStep = mobile
+        ? Math.max(5, Math.round(H / 110))
+        : Math.max(3, Math.round(H / 160));
+      var colStep = mobile
+        ? Math.max(6, Math.round(W / 85))
+        : Math.max(4, Math.round(W / 120));
       var scale = cover.sw / W;
-      var ampMax = Math.min(24, H * 0.032);
+      var ampMax = mobile ? Math.min(38, H * 0.05) : Math.min(24, H * 0.032);
 
       ctx.fillStyle = "#f4f6fb";
       ctx.fillRect(0, 0, W, H);
