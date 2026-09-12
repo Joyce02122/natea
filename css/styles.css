@@ -1157,6 +1157,38 @@ body.nav-open .site-header {
   text-align: center;
 }
 
+.speaker__company {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  margin: 0.4rem auto 0;
+  font-family: var(--font);
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1;
+  color: #1f2937;
+  text-align: center;
+}
+
+.speaker__company-label {
+  font: inherit;
+  color: inherit;
+  display: inline-block;
+  line-height: 1;
+}
+
+.speaker__company-logo {
+  display: block;
+  width: 5.25rem;
+  height: 1.35rem;
+  max-width: 100%;
+  margin: 0;
+  object-fit: contain;
+  object-position: center;
+  flex-shrink: 0;
+}
+
 .speaker__logo {
   display: block;
   /* Uniform frame so every company mark reads at the same scale */
@@ -1401,6 +1433,18 @@ body.nav-open .site-header {
   margin-inline: auto;
 }
 
+.organizers__title,
+.sponsors__title {
+  margin: 0 0 0.9rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
 .organizers {
   list-style: none;
   margin: 0;
@@ -1433,6 +1477,48 @@ body.nav-open .site-header {
 .organizers li:nth-child(3) img {
   height: clamp(2.1rem, 4.5vw, 2.75rem);
   max-width: 3.5rem;
+}
+
+.site-footer__sponsors {
+  background: #fff;
+  padding: 0 0 1.3rem;
+}
+
+.site-footer__sponsors-inner {
+  width: min(100% - 2 * var(--space-page-x), 48rem);
+  margin-inline: auto;
+}
+
+.sponsors {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.8rem, 2vw, 1.5rem) clamp(1rem, 2.8vw, 1.75rem);
+}
+
+.sponsors li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+}
+
+.sponsors img {
+  display: block;
+  width: auto;
+  max-width: min(8rem, 30vw);
+  height: clamp(1.8rem, 3.5vw, 2.5rem);
+  object-fit: contain;
+  object-position: center;
+}
+
+.sponsors li:nth-child(1) img,
+.sponsors li:nth-child(6) img {
+  max-width: min(6.2rem, 26vw);
 }
 
 .site-footer__bar {
