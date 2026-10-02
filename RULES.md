@@ -32,8 +32,9 @@ Do not invent speakers, times, venues, partners, or URLs. Rearrange only for cla
 - **When:** Saturday, October 24, 2026 · 1:30 – 6:30 PM PT  
 - **Campus:** University of Washington  
 - **Event venue:** Oak Hall Denny Room  
-- **Hero CTA:** Reserve your seat → Google Form  
-- **Nav CTA:** RSVP → same form  
+- **Hero CTA:** Reserve your seat → Zeffy ticketing  
+- **Nav CTA:** RSVP → same Zeffy link  
+- **URL:** https://www.zeffy.com/en-US/ticketing/us-taiwan-tech-connect--2026  
 - **Contact:** uttc@natea.org  
 - **Social:** Facebook group `natea.seattle`; NATEA LinkedIn company page  
 
